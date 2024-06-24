@@ -6,11 +6,15 @@ export async function getUserData() {
       resolve("");
     }, 5000)
   );
-  const id = Math.floor(Math.random() * 10);
-  const response = await axios.get(
-    `https://jsonplaceholder.typicode.com/users/${id}`
-  );
-  return response.data;
+  try {
+    const id = Math.floor(Math.random() * 10);
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 }
 
 export default async function Page() {
@@ -19,10 +23,12 @@ export default async function Page() {
   return (
     <div className="">
       Hi there
-      <ul>
-        <li>Name : {user.name}</li>
-        <li>Email : {user.email}</li>
-      </ul>
+      {user ? (
+        <ul>
+          <li>Name : {user.name}</li>
+          <li>Email : {user.email}</li>
+        </ul>
+      ) : null}
     </div>
   );
 }
