@@ -1,17 +1,11 @@
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 
+const client = new PrismaClient();
+
 export async function getUserData() {
-  await new Promise((resolve, reject) =>
-    setTimeout(() => {
-      resolve("");
-    }, 5000)
-  );
   try {
-    const id = Math.floor(Math.random() * 10);
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
-    return response.data;
+    return await client.user.findFirst({});
   } catch (error) {
     return null;
   }
@@ -25,8 +19,8 @@ export default async function Page() {
       Hi there
       {user ? (
         <ul>
-          <li>Name : {user.name}</li>
-          <li>Email : {user.email}</li>
+          <li>Name : {user.username}</li>
+          <li>Email : {user.password}</li>
         </ul>
       ) : null}
     </div>
