@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import axios from "axios";
-
-const client = new PrismaClient();
+import client from "@/app/db"
 
 export async function getUserData() {
   try {
